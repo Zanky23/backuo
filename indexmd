@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Backup Simulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    #quiz-container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .question {
+      margin-bottom: 10px;
+    }
+
+    .options {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .option {
+      margin-bottom: 5px;
+    }
+
+    #submit-btn {
+      display: block;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="quiz-container">
+  <h1>Data Backup Simulation</h1>
+  <div id="quiz"></div>
+  <button id="submit-btn" onclick="submitQuiz()">Submit</button>
+</div>
+
+<script>
+  const questions = [
+    {
+      question: "1. What is the primary purpose of data backup?",
+      options: ["To store extra copies of files", "To recover data in case of loss or damage", "To delete unnecessary files", "To increase storage capacity"],
+      correctAnswer: "To recover data in case of loss or damage"
+    },
+    {
+      question: "2. How often should you perform backups of important data?",
+      options: ["Once a year", "Once a month", "Once a week", "Daily"],
+      correctAnswer: "Daily"
+    },
+    {
+      question: "3. Which of the following is NOT a common method of data backup?",
+      options: ["External hard drive", "Cloud storage", "Flash drive", "Fax machine"],
+      correctAnswer: "Fax machine"
+    },
+    {
+      question: "4. Why is it important to test your backups regularly?",
+      options: ["To waste time", "To ensure backups are working properly", "To increase backup costs", "To make backups last longer"],
+      correctAnswer: "To ensure backups are working properly"
+    },
+    {
+      question: "5. What is the 3-2-1 backup rule?",
+      options: ["Backup data three times, using two different methods, and keep one copy offsite", "Backup data once, using three different methods, and keep one copy onsite", "Backup data twice, using one method, and keep one copy offsite", "Backup data three times, using one method, and keep two copies onsite"],
+      correctAnswer: "Backup data three times, using two different methods, and keep one copy offsite"
+    },
+    {
+      question: "6. Which type of backup includes all selected data and marks it as backed up?",
+      options: ["Full backup", "Incremental backup", "Differential backup", "Mirror backup"],
+      correctAnswer: "Full backup"
+    },
+    {
+      question: "7. What is the purpose of offsite backups?",
+      options: ["To have backups in another room", "To have backups in another city or location", "To have backups on another device", "To have backups on another computer"],
+      correctAnswer: "To have backups in another city or location"
+    },
+    {
+      question: "8. In addition to regular backups, what else should you do to protect your data?",
+      options: ["Nothing, backups are enough", "Encrypt sensitive data", "Delete old backups", "Disable backup notifications"],
+      correctAnswer: "Encrypt sensitive data"
+    },
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+
+  function loadQuestion() {
+    const quiz = document.getElementById("quiz");
+    const currentQ = questions[currentQuestion];
+
+    quiz.innerHTML = `
+      <div class="question">${currentQ.question}</div>
+      <ul class="options">
+        ${currentQ.options.map((option, index) => `<li class="option"><input type="radio" name="option" value="${option}"> ${option}</li>`).join('')}
+      </ul>
+    `;
+  }
+
+  function submitQuiz() {
+    const selectedOption = document.querySelector('input[name="option"]:checked');
+    if (!selectedOption) {
+      alert("Please select an option.");
+      return;
+    }
+
+    const answer = selectedOption.value;
+    const currentQ = questions[currentQuestion];
+
+    if (answer === currentQ.correctAnswer) {
+      score++;
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    const quizContainer = document.getElementById("quiz-container");
+    quizContainer.innerHTML = `
+      <h2>Simulation Completed</h2>
+      <p>Your score: ${score} out of ${questions.length}</p>
+      <p>Thank you for completing the Data Backup Simulation!</p>
+    `;
+  }
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
